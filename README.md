@@ -6,7 +6,7 @@ Sovelluksen ominaisuuksia:
 
 * Käyttäjät voivat kirjautua sisään ja ulos, sekä luoda uuden tunnuksen.
 * Käyttäjät voivat selata ja hakea kiipeilyreittejä eri parametrein, esim. graden ja sijainnin mukaan.
-* Käyttäjät voivat merkitä reitin suoritetuksi tai projektiksi.
+* Käyttäjät voivat merkitä reitin topatuksi tai projektiksi.
 * Käyttäjät näkevät omilla sivuillaan tietoa omasta kiipeilyhistoriastaan, esim. korkein grade, suosituin sali.
 * Salin tiedoista näkee salin osoitteen ja muut tiedot, sekä sieltä voi selata salin reittejä.
 * Reitin tiedoista näkee reitintekijän, salin, graden, sekä kuinka monta kertaa reitti on topattu.
