@@ -11,9 +11,16 @@ CREATE TABLE gyms (
     address TEXT
 );
 
+CREATE TABLE walls (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    gym_id INTEGER REFERENCES gyms,
+    wall_type TEXT
+);
+
 CREATE TABLE  boulders (
     id SERIAL PRIMARY KEY,
-    location_id INTEGER REFERENCES gyms,
+    wall_id INTEGER REFERENCES walls,
     color TEXT,
     difficulty INTEGER,
     routesetter_id INTEGER REFERENCES users
