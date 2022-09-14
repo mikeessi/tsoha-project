@@ -14,6 +14,7 @@ CREATE TABLE gyms (
 CREATE TABLE  boulders (
     id SERIAL PRIMARY KEY,
     location_id INTEGER REFERENCES gyms,
+    color TEXT,
     difficulty INTEGER,
     routesetter_id INTEGER REFERENCES users
 );
