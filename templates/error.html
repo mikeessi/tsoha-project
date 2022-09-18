@@ -1,3 +1,8 @@
-{% extends "index.html" %}
-{% block error %}<p style="color:red">Väärä käyttäjänimi tai salasana</p>{% endblock error %}
-
+{% block content %}
+    {% if page == "index" %}
+        {% include "index.html" %}
+    {% else %}
+        {% include "register.html" %}
+    {% endif %}
+{% endblock content %}
+{% block error %}<p style="color:red">{{message}}</p>{% endblock error %}
