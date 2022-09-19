@@ -14,7 +14,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
-            return "Tervetuloa"
+            return redirect("/")
     return render_template("error.html", page="index", message="Väärä tunnus tai salasana")
 
 @app.route("/register", methods=["POST","GET"])
@@ -39,4 +39,9 @@ def register():
         if not users.create_account(username, password1, user_role):
             return render_template("error.html", page="register", message="Rekisteröinti epäonnistui")
         return redirect("/")
+
+@app.route("/logout")
+def logout():
+    users.logout()
+    return redirect("/")
 
