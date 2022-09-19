@@ -1,4 +1,5 @@
 from app import db
+from werkzeug.security import check_password_hash, generate_password_hash
 
 def login(name, password):
     sql = "SELECT password, id, user_role FROM users WHERE name=:username"
@@ -6,6 +7,25 @@ def login(name, password):
     user = result.fetchone()
     if not user:
         return False
-    if user[0] != password:
+    if not check_password_hash(user[0], password):
+        return False
+    return True
+
+def check_username(name):
+    sql = "SELECT name FROM users WHERE name=:username"
+    result = db.session.execute(sql, {"username":name})
+    user = result.fetchone()
+    if not user:
+        return True
+    return False
+
+def create_account(name, password, user_role):
+    password_hash = generate_password_hash(password)
+    try:
+        sql = """INSERT INTO users (name, password, user_role)
+                 VALUES (:name, :password, :user_role)"""
+        db.session.execute(sql, {"name":name, "password":password_hash, "user_role":user_role})
+        db.session.commit()
+    except:
         return False
     return True
