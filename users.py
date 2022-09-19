@@ -1,4 +1,6 @@
+import os
 from app import db
+from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def login(name, password):
@@ -9,6 +11,10 @@ def login(name, password):
         return False
     if not check_password_hash(user[0], password):
         return False
+    session["user_id"] = user[1]
+    session["username"] = name
+    session["user_role"] = user[2]
+    session["csrf_token"] = os.urandom(16).hex()
     return True
 
 def check_username(name):
@@ -28,4 +34,9 @@ def create_account(name, password, user_role):
         db.session.commit()
     except:
         return False
-    return True
+    return login(name, password)
+
+def logout():
+    del session["user_id"]
+    del session["username"]
+    del session["user_role"]
