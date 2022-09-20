@@ -1,8 +1,10 @@
 {% block content %}
     {% if page == "index" %}
         {% include "index.html" %}
-    {% else %}
+    {% elif page == "register" %}
         {% include "register.html" %}
+    {% else %}
+        {% include "add_gym.html" %}
     {% endif %}
 {% endblock content %}
 {% block error %}<p style="color:red">{{message}}</p>{% endblock error %}
