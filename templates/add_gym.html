@@ -1,0 +1,13 @@
+<h3>Lisää sali</h3>
+
+<form action="add_gym" method="POST">
+Salin nimi: <br><input type="text" name="gym_name" maxlength="30">
+<p>Salin osoite: <br><input type="text" name="address" maxlength="30">
+
+<input type="submit" value="Luo sali">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>
+
+<p>
+<a href="/">Takaisin</a>
