@@ -50,6 +50,12 @@ def logout():
 def gym():
     return render_template("/gyms.html", gyms=gyms.get_all_gyms())
 
-@app.route("/add_gym")
+@app.route("/add_gym", methods=["POST","GET"])
 def add_gym():
-    return render_template("/add_gym.html")
+    if request.method == "GET":
+        return render_template("/add_gym.html")
+    if request.method == "POST":
+        gym_name = request.form["gym_name"]
+        if not gyms.check_gym_name(gym_name):
+            return render_template("error.html", page="add_gym", message="Salin nimi varattu")
+    return ("<h1>TODO</h1>")
