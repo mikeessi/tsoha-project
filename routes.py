@@ -1,5 +1,6 @@
 from flask import render_template, redirect, request
 from app import app
+import gyms
 import users
 
 @app.route("/")
@@ -45,3 +46,10 @@ def logout():
     users.logout()
     return redirect("/")
 
+@app.route("/gyms")
+def gym():
+    return render_template("/gyms.html", gyms=gyms.get_all_gyms())
+
+@app.route("/add_gym")
+def add_gym():
+    return render_template("/add_gym.html")

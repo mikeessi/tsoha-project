@@ -1,0 +1,11 @@
+<h3>Salit</h3>
+{% for gym in gyms %}
+<li><a href="/gyms/{{ gym.id }}">{{ gym.name }}</a>
+{% endfor %}
+
+{% if session.user_role == 2 %}
+<h4>Reitintekijän toiminnot</h4>
+<ul>
+<li><a href="/add_gym">Lisää uusi sali</a>
+</ul>
+{% endif %}

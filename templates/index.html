@@ -1,6 +1,8 @@
 <title>Kiipeilysovellus</title>
 {% if session.user_id %}
 <p>Tervetuloa, {{ session.username }}</p>
+<a href="/gyms">Salit</a>
+<br>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <h2>Tervetuloa</h2>
@@ -12,8 +14,9 @@ Salasana: <br><input type="password" name="password">
 <input type="submit" value="Kirjaudu">
 </form>
 <p>Ei tunnusta? <a href="/register">Luo uusi tunnus tästä</a>
-</p>
+
 {% endif %}
+
 {% block error %}
 {% endblock error %}
 
