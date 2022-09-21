@@ -5,10 +5,14 @@ def get_all_gyms():
     return db.session.execute(sql).fetchall()
 
 def add_new_gym(name, address, creator_id):
-    sql = """INSER INTO gyms (name, address, creator_id) 
-             VALUES (:name, :address, :creator_id)"""
-    db.session.execute(sql, {"name":name, "address":address, "creator_id":creator_id})
-    db.session.commit()
+    try:
+        sql = """INSERT INTO gyms (name, address, creator_id) 
+                 VALUES (:name, :address, :creator_id)"""
+        db.session.execute(sql, {"name":name, "address":address, "creator_id":creator_id})
+        db.session.commit()
+        return True
+    except:
+        return False
 
 def check_gym_name(gym_name):
     sql = "SELECT id, name, address FROM gyms WHERE name=:gym_name"
