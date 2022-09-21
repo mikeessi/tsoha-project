@@ -8,7 +8,8 @@ CREATE TABLE users (
 CREATE TABLE gyms (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    address TEXT
+    address TEXT,
+    creator_id INTEGER REFERENCES users
 );
 
 CREATE TABLE walls (
