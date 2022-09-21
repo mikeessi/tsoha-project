@@ -1,6 +1,6 @@
 import os
 from app import db
-from flask import session
+from flask import session, abort, request
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def login(name, password):
@@ -40,3 +40,7 @@ def logout():
     del session["user_id"]
     del session["username"]
     del session["user_role"]
+
+def check_csrf_token(token):
+    if session["csrf_token"] != token:
+        abort(403)
