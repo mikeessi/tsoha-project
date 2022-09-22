@@ -61,10 +61,12 @@ def add_gym():
         creator_id = request.form["user_id"]
         if not gyms.check_gym_name(gym_name):
             return render_template("error.html", page="add_gym", message="Salin nimi varattu")
-        if len(gym_name) > 30:
-            return render_template("error.html", page="add_gym", message="Nimi voi olla korkeintaan 30 merkkiä pitkä")
+        if len(gym_name) < 2 or len(gym_name) > 30:
+            return render_template("error.html", page="add_gym", message="Nimen täytyy olla 2-30 merkkiä pitkä")
         if len(address) > 30:
             return render_template("error.html", page="add_gym", message="Osoite saa olla korkeintaan 30 merkkiä pitkä")
+        if not address:
+            return render_template("error.hetml", page="add_gym", message="Lisää salin osoite"
         if not gyms.add_new_gym(gym_name, address, creator_id):
             return render_template("error.html", page="add_gym", message="Salin lisäys epäonnistui")
     return redirect("/gyms")
