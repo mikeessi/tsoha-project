@@ -1,4 +1,4 @@
-from app import db
+from db import db
 
 def get_all_gyms():
     sql = "SELECT id, name, address FROM gyms ORDER BY name"

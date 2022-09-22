@@ -1,5 +1,5 @@
 import os
-from app import db
+from db import db
 from flask import session, abort, request
 from werkzeug.security import check_password_hash, generate_password_hash
 
