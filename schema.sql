@@ -29,7 +29,7 @@ CREATE TABLE  boulders (
 
 CREATE TABLE topped_boulders (
     id SERIAL PRIMARY KEY,
-    boulder_id INTEGER REFERENCES boulders
+    boulder_id INTEGER REFERENCES boulders,
     user_id INTEGER REFERENCES users
 );
 
