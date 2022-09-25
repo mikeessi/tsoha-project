@@ -48,10 +48,12 @@ def logout():
 
 @app.route("/gyms")
 def gym():
+    users.check_user_access(1)
     return render_template("/gyms.html", gyms=gyms.get_all_gyms())
 
 @app.route("/add_gym", methods=["POST","GET"])
 def add_gym():
+    users.check_user_access(2)
     if request.method == "GET":
         return render_template("/add_gym.html")
     if request.method == "POST":
@@ -73,4 +75,5 @@ def add_gym():
 
 @app.route("/gyms/<int:gym_id>")
 def gym_info(gym_id):
+    users.check_user_access(1)
     return ("<h1>TODO</h1>")

@@ -44,3 +44,7 @@ def logout():
 def check_csrf_token(token):
     if session["csrf_token"] != token:
         abort(403)
+
+def check_user_access(role):
+    if session.get("user_role", 0) < role:
+         abort(403)
