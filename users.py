@@ -51,3 +51,7 @@ def check_user_access(role):
 
 def get_user_id():
     return session["user_id"]
+
+def check_gym_ownership(creator_id):
+    if get_user_id() != creator_id:
+        abort(403)
