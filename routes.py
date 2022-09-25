@@ -60,7 +60,7 @@ def add_gym():
         users.check_csrf_token(request.form["csrf_token"])
         gym_name = request.form["gym_name"]
         address = request.form["address"]
-        creator_id = request.form["user_id"]
+        creator_id = users.get_user_id()
         if not gyms.check_gym_name(gym_name):
             return render_template("error.html", page="add_gym", message="Salin nimi varattu")
         if len(gym_name) < 2 or len(gym_name) > 30:
@@ -76,4 +76,4 @@ def add_gym():
 @app.route("/gyms/<int:gym_id>")
 def gym_info(gym_id):
     users.check_user_access(1)
-    return ("<h1>TODO</h1>")
+    return render_template("/gym_info.html", gym_info=gyms.get_gym_info(gym_id))

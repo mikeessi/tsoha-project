@@ -21,3 +21,9 @@ def check_gym_name(gym_name):
     if not gym:
         return True
     return False
+
+def get_gym_info(gym_id):
+    sql = """SELECT G.id, G.name, G.address, U.name FROM gyms G, users U 
+             WHERE G.id=:gym_id AND U.id = G.creator_id"""
+    result = db.session.execute(sql, {"gym_id":gym_id})
+    return result.fetchone()

@@ -48,3 +48,6 @@ def check_csrf_token(token):
 def check_user_access(role):
     if session.get("user_role", 0) < role:
          abort(403)
+
+def get_user_id():
+    return session["user_id"]
