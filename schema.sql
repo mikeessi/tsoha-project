@@ -16,7 +16,7 @@ CREATE TABLE walls (
     id SERIAL PRIMARY KEY,
     name TEXT,
     gym_id INTEGER REFERENCES gyms,
-    wall_type TEXT
+    description TEXT
 );
 
 CREATE TABLE  boulders (
