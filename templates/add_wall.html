@@ -1,0 +1,13 @@
+<h3>Seinän lisäys</h3>
+
+<form action="add_wall" method="POST">
+Seinän nimi: <br><input type="text" name="wall_name" maxlength="20">
+<p>Lyhyt kuvaus seinälle (esim. tyyppi, sijainti)
+<br><input type="text" name="wall_description" maxlength="20">
+<input type="submit" value="Lisää seinä">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>
+<br>
+<a href="/gyms">Takaisin</a>
+
