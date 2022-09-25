@@ -1,4 +1,4 @@
-from flask import abort, render_template, redirect, request
+from flask import render_template, redirect, request
 from app import app
 import gyms
 import users

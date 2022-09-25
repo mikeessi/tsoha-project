@@ -6,7 +6,7 @@ def get_all_gyms():
 
 def add_new_gym(name, address, creator_id):
     try:
-        sql = """INSERT INTO gyms (name, address, creator_id) 
+        sql = """INSERT INTO gyms (name, address, creator_id)
                  VALUES (:name, :address, :creator_id)"""
         db.session.execute(sql, {"name":name, "address":address, "creator_id":creator_id})
         db.session.commit()
