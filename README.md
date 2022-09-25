@@ -11,3 +11,6 @@ Sovelluksen ominaisuuksia:
 * Salin tiedoista näkee salin osoitteen ja muut tiedot, sekä sieltä voi selata salin reittejä.
 * Reitin tiedoista näkee reitintekijän, salin, graden, sekä kuinka monta kertaa reitti on topattu.
 * Reitintekijät voivat lisätä ja poistaa reittejä saleilta.
+
+Voit testata sovellusta [Herokussa](https://tsoha-kiipeilysovellus.herokuapp.com/).
+
