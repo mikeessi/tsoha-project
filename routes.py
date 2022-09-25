@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request
+from flask import abort, render_template, redirect, request
 from app import app
 import gyms
 import users
@@ -49,13 +49,13 @@ def logout():
 @app.route("/gyms")
 def gym():
     users.check_user_access(1)
-    return render_template("/gyms.html", gyms=gyms.get_all_gyms())
+    return render_template("gyms.html", gyms=gyms.get_all_gyms())
 
 @app.route("/add_gym", methods=["POST","GET"])
 def add_gym():
     users.check_user_access(2)
     if request.method == "GET":
-        return render_template("/add_gym.html")
+        return render_template("add_gym.html")
     if request.method == "POST":
         users.check_csrf_token(request.form["csrf_token"])
         gym_name = request.form["gym_name"]
@@ -76,4 +76,23 @@ def add_gym():
 @app.route("/gyms/<int:gym_id>")
 def gym_info(gym_id):
     users.check_user_access(1)
-    return render_template("/gym_info.html", gym_info=gyms.get_gym_info(gym_id))
+    return render_template("gym_info.html", gym_info=gyms.get_gym_info(gym_id))
+
+@app.route("/gyms/<int:gym_id>/add_wall", methods=["POST","GET"])
+def add_wall(gym_id):
+    users.check_gym_ownership(gyms.get_creator_id(gym_id))
+    if request.method == "GET":
+        return render_template("add_wall.html", gym_id=gym_id)
+    if request.method == "POST":
+        users.check_csrf_token(request.form["csrf_token"])
+        wall_name = request.form["wall_name"]
+        wall_description = request.form["wall_description"]
+        if gyms.check_wall(gym_id, wall_name):
+            return render_template("error.html", page="add_wall", message="Seinä on jo olemassa")
+        if len(wall_name) < 1 or len(wall_name) > 20:
+            return render_template("error.html", page="add_wall", message="Seinän nimi täytyy olla 1-20 merkkiä pitkä")
+        if len(wall_description) < 1 or len(wall_description) > 20:
+            return render_template("error.html", page="add_wall", message="Seinän kuvauksen täytyy olla 1-20 merkkiä pitkä")
+        if not gyms.add_new_wall(wall_name, wall_description, gym_id):
+            return render_template("error.html", page="add_wall", message="Seinän lisäys epäonnistui")
+    return redirect(f"/gyms/{gym_id}")

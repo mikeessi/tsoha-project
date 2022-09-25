@@ -1,4 +1,8 @@
 <h2>{{ gym_info[1] }}</h2>
 <p>Salin osoite: {{ gym_info[2] }}<br>
 Salin omistaja: {{ gym_info[3] }}<br>
+{% if gym_info[4] == session.user_id %}
+<a href="/gyms/{{ gym_info[0] }}/add_wall">Lisää seinä</a>
+<br>
+{% endif %}
 <a href="/gyms">Takaisin</a>
