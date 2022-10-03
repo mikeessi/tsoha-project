@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, abort
 from app import app
 import gyms
 import users
@@ -41,7 +41,7 @@ def register():
         if len(errors) > 0:
             return render_template("error.html", page="register", messages=errors)
         if not users.create_account(username, password1, user_role):
-            return render_template("error.html", page="register", messages="Rekisteröinti epäonnistui")
+            return render_template("error.html", page="register", messages=["Rekisteröinti epäonnistui"])
         return redirect("/")
 
 @app.route("/logout")
@@ -76,11 +76,13 @@ def add_gym():
         if len(errors) > 0:
             return render_template("error.html", page="add_gym", messages=errors)
         if not gyms.add_new_gym(gym_name, address, creator_id):
-            return render_template("error.html", page="add_gym", messages="Salin lisäys epäonnistui")
+            return render_template("error.html", page="add_gym", messages=["Salin lisäys epäonnistui"])
     return redirect("/gyms")
 
 @app.route("/gyms/<int:gym_id>")
 def gym_info(gym_id):
+    if not gyms.check_gym_id(gym_id):
+        abort(404)
     users.check_user_access(1)
     return render_template("gym_info.html", gym_info=gyms.get_gym_info(gym_id))
 
@@ -103,5 +105,29 @@ def add_wall(gym_id):
         if len(errors) > 0:
             return render_template("error.html", page="add_wall", messages=errors)
         if not gyms.add_new_wall(wall_name, wall_description, gym_id):
-            return render_template("error.html", page="add_wall", messages="Seinän lisäys epäonnistui")
+            return render_template("error.html", page="add_wall", messages=["Seinän lisäys epäonnistui"])
+    return redirect(f"/gyms/{gym_id}")
+
+@app.route("/gyms/<int:gym_id>/add_boulder", methods=["POST","GET"])
+def add_boulder(gym_id):
+    users.check_user_access(2)
+    if request.method == "GET":
+        return render_template("add_boulder.html", gym_id=gym_id)
+    if request.method == "POST":
+        errors = []
+        users.check_csrf_token(request.form["csrf_token"])
+        routesetter_id = users.get_user_id()
+        boulder_grade = request.form["grade"]
+        wall_id = request.form["wall_id"]
+        boulder_color = request.form["color"]
+        if not boulder_grade:
+            errors.append("Valitse reitin vaikeus")
+        if not wall_id:
+            errors.append("Valitse seinä")
+        if not boulder_color:
+            errors.append("Valitse reitin väri")
+        if len(errors) > 0:
+            return render_template("error.html", page="add_boulder", messages=errors)
+        if not gyms.add_boulder(routesetter_id, boulder_grade, wall_id, boulder_color):
+            return render_template("error.html", page="add_boulder", messages=["Reitin lisäys epäonnistui"])
     return redirect(f"/gyms/{gym_id}")
