@@ -2,7 +2,7 @@
 {% for gym in gyms %}
 <li><a href="/gyms/{{ gym.id }}">{{ gym.name }}</a>
 {% endfor %}
-
+<br>
 {% if session.user_role == 2 %}
 <h4>Reitintekijän toiminnot</h4>
 <ul>
