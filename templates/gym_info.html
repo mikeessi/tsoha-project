@@ -5,4 +5,26 @@ Salin omistaja: {{ gym_info[3] }}<br>
 <a href="/gyms/{{ gym_info[0] }}/add_wall">Lisää seinä</a>
 <br>
 {% endif %}
+{% if walls|length > 0 %}
+<br>
+<table>
+  <tr>
+   <th>Nimi</th>
+   <th>Kuvaus</th>
+  </tr>
+{% for wall in walls %}
+  <tr>
+   <td>{{ wall[0] }}</td>
+   <td>{{ wall[1] }}</td>
+  </tr>
+{% endfor %}
+</table>
+<br>
+{% if session.user_role == 2 %}
+<a href="/gyms/{{ gym_info[0] }}/add_boulder">Lisää reitti</a>
+{% endif %}
+{% else %}
+<p>Salille ei ole vielä lisätty seiniä.
+{% endif %}
+<br>
 <a href="/gyms">Takaisin</a>

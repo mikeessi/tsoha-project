@@ -23,10 +23,9 @@ def check_gym_name(gym_name):
     return False
 
 def get_gym_info(gym_id):
-    sql = """SELECT G.id, G.name, G.address, U.name, U.id, W.id, W.name
-             FROM gyms G, users U, walls W
+    sql = """SELECT G.id, G.name, G.address, U.name, U.id
+             FROM gyms G, users U
              WHERE G.id=:gym_id
-             AND W.gym_id = G.id
              AND U.id = G.creator_id"""
     result = db.session.execute(sql, {"gym_id":gym_id})
     return result.fetchone()
@@ -78,3 +77,10 @@ def check_gym_id(gym_id):
     if gym:
         return True
     return False
+
+def get_gym_walls(gym_id):
+    sql = """SELECT W.name, W.description FROM walls W, gyms G
+             WHERE G.id =:gym_id
+             AND W.gym_id = G.id"""
+    result = db.session.execute(sql, {"gym_id":gym_id})
+    return result.fetchall()
