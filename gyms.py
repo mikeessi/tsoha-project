@@ -23,9 +23,11 @@ def check_gym_name(gym_name):
     return False
 
 def get_gym_info(gym_id):
-    sql = """SELECT G.id, G.name, G.address, U.name, U.id
-             FROM gyms G, users U
-             WHERE G.id=:gym_id AND U.id = G.creator_id"""
+    sql = """SELECT G.id, G.name, G.address, U.name, U.id, W.id, W.name
+             FROM gyms G, users U, walls W
+             WHERE G.id=:gym_id
+             AND W.gym_id = G.id
+             AND U.id = G.creator_id"""
     result = db.session.execute(sql, {"gym_id":gym_id})
     return result.fetchone()
 
@@ -58,3 +60,21 @@ def add_new_wall(wall_name, wall_description, gym_id):
         return True
     except:
         return False
+
+def add_boulder(routesetter_id, grade, wall_id, color):
+    try:
+        sql = """INSERT INTO boulders (wall_id, color, difficulty, routesetter_id)
+                 VALUES (:wall_id, :color, :difficulty, :routesetter_id)"""
+        db.session.execute(sql, {"wall_id":wall_id, "color":color, "difficulty":grade, "routesetter_id":routesetter_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
+def check_gym_id(gym_id):
+    sql = "SELECT id FROM gyms WHERE id=:gym_id"
+    result = db.session.execute(sql, {"gym_id":gym_id})
+    gym = result.fetchone()
+    if gym:
+        return True
+    return False
