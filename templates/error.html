@@ -9,4 +9,8 @@
         {% include "add_gym.html" %}
     {% endif %}
 {% endblock content %}
-{% block error %}<p style="color:red">{{message}}</p>{% endblock error %}
+{% block error %}
+{% for msg in messages %}
+<p style="color:red">{{ msg }}</p>
+{% endfor %}
+{% endblock error %}
