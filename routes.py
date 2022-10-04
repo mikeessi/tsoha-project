@@ -84,8 +84,8 @@ def gym_info(gym_id):
     if not gyms.check_gym_id(gym_id):
         abort(404)
     users.check_user_access(1)
-    walls = gyms.get_gym_walls(gym_id)
-    return render_template("gym_info.html", gym_info=gyms.get_gym_info(gym_id), walls = walls)
+    gym_info, walls = gyms.get_gym_info(gym_id)
+    return render_template("gym_info.html", gym_info=gym_info, walls=walls)
 
 @app.route("/gyms/<int:gym_id>/add_wall", methods=["POST","GET"])
 def add_wall(gym_id):

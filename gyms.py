@@ -23,12 +23,21 @@ def check_gym_name(gym_name):
     return False
 
 def get_gym_info(gym_id):
-    sql = """SELECT G.id, G.name, G.address, U.name, U.id
-             FROM gyms G, users U
+    sql = """SELECT G.id, G.name, G.address, U.name, U.id, W.name, W.description
+             FROM users U, gyms G
+             LEFT JOIN walls W ON G.id = W.gym_id
              WHERE G.id=:gym_id
-             AND U.id = G.creator_id"""
+             AND U.id = G.creator_id
+             ORDER BY W.name DESC"""
     result = db.session.execute(sql, {"gym_id":gym_id})
-    return result.fetchone()
+    data = result.fetchall()
+    gym_info = data[0]
+    walls = []
+    for row in data:
+        if row[5] == None:
+            break
+        walls.append((row[5],row[6]))
+    return gym_info, walls
 
 def check_wall(gym_id, wall_name):
     sql = """SELECT G.id, G.name, W.id, W.name
@@ -37,7 +46,6 @@ def check_wall(gym_id, wall_name):
              G.id=:gym_id AND W.name=:wall_name"""
     result = db.session.execute(sql, {"gym_id":gym_id, "wall_name":wall_name})
     wall = result.fetchone()
-    print(wall)
     if wall:
         return True
     return False
