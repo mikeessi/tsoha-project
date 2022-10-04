@@ -28,7 +28,7 @@ def get_gym_info(gym_id):
              LEFT JOIN walls W ON G.id = W.gym_id
              WHERE G.id=:gym_id
              AND U.id = G.creator_id
-             ORDER BY W.name DESC"""
+             ORDER BY W.name"""
     result = db.session.execute(sql, {"gym_id":gym_id})
     data = result.fetchall()
     gym_info = data[0]
