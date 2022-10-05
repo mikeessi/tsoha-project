@@ -1,2 +1,29 @@
-<h1>TODO</h1>
+<h3>Lisää reitti salille {{ gym_info[1] }}</h3>
+<form action="add_boulder" method="POST">
+<label for="wall_id">Valitse seinä:</label>
+<select id="wall_id" name="wall_id">
+  {% for wall in walls %}
+  <option value={{ wall[2] }}>{{ wall[0] }}</option>
+  {% endfor %}
+</select>
+<p>
+<label for="color">Valitse väri:</label>
+<select id="color" name="color">
+  {% for color in colors %}
+  <option value={{ color }}>{{ colors[color] }}</option>
+  {% endfor %}
+</select>
+<p>
+<label for="grade">Valitse grade:</label>
+<select id="grade" name="grade">
+  {% for grade in grades %}
+  <option value={{ grade }}>{{ grades[grade] }}</option>
+  {% endfor %}
+</select>
+<p>
+<input type="submit" value="Lisää reitti">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="hidden" name="used_id" value="{{ session.user_id }}">
+</form>
+<a href="/gyms/{{gym_info[0]}}">Takaisin</a>
 

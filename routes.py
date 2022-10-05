@@ -1,5 +1,6 @@
 from flask import render_template, redirect, request, abort
 from app import app
+from constants import GRADES, COLORS
 import gyms
 import users
 
@@ -112,8 +113,9 @@ def add_wall(gym_id):
 @app.route("/gyms/<int:gym_id>/add_boulder", methods=["POST","GET"])
 def add_boulder(gym_id):
     users.check_user_access(2)
+    info, walls = gyms.get_gym_info(gym_id)
     if request.method == "GET":
-        return render_template("add_boulder.html", gym_id=gym_id)
+        return render_template("add_boulder.html", gym_info=info, walls=walls, colors=COLORS, grades=GRADES)
     if request.method == "POST":
         errors = []
         users.check_csrf_token(request.form["csrf_token"])

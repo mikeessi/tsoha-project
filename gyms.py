@@ -23,7 +23,7 @@ def check_gym_name(gym_name):
     return False
 
 def get_gym_info(gym_id):
-    sql = """SELECT G.id, G.name, G.address, U.name, U.id, W.name, W.description
+    sql = """SELECT G.id, G.name, G.address, U.name, U.id, W.name, W.description, W.id
              FROM users U, gyms G
              LEFT JOIN walls W ON G.id = W.gym_id
              WHERE G.id=:gym_id
@@ -36,7 +36,7 @@ def get_gym_info(gym_id):
     for row in data:
         if row[5] == None:
             break
-        walls.append((row[5],row[6]))
+        walls.append((row[5],row[6],row[7]))
     return gym_info, walls
 
 def check_wall(gym_id, wall_name):
