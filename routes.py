@@ -112,6 +112,8 @@ def add_wall(gym_id):
 
 @app.route("/gyms/<int:gym_id>/add_boulder", methods=["POST","GET"])
 def add_boulder(gym_id):
+    if not gyms.check_gym_id(gym_id):
+        abort(404)
     users.check_user_access(2)
     info, walls = gyms.get_gym_info(gym_id)
     if request.method == "GET":
