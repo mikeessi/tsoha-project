@@ -136,3 +136,21 @@ def add_boulder(gym_id):
         if not gyms.add_boulder(routesetter_id, boulder_grade, wall_id, boulder_color):
             return render_template("error.html", page="add_boulder", messages=["Reitin lisäys epäonnistui"])
     return redirect(f"/gyms/{gym_id}")
+
+@app.route("/search", methods=["POST","GET"])
+def search():
+    users.check_user_access(1)
+    all_gyms = gyms.get_all_gyms()
+    if request.method == "GET":
+        return render_template("search.html", gyms=all_gyms, grades=GRADES)
+    if request.method == "POST":
+        if request.form["gym_id"] == "--":
+            gym_id = None
+        else:
+            gym_id = request.form["gym_id"]
+        if request.form["grade"] == "--":
+            grade = None
+        else:
+            grade = request.form["grade"]
+        boulders = gyms.get_boulders(gym_id, grade)
+    return render_template("result.html", boulders=boulders, grades=GRADES, colors=COLORS)
