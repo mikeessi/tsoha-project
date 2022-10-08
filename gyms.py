@@ -86,9 +86,15 @@ def check_gym_id(gym_id):
         return True
     return False
 
-def get_gym_walls(gym_id):
-    sql = """SELECT W.name, W.description FROM walls W, gyms G
-             WHERE G.id =:gym_id
-             AND W.gym_id = G.id"""
-    result = db.session.execute(sql, {"gym_id":gym_id})
-    return result.fetchall()
+def get_boulders(gym_id, grade):
+    sql = """SELECT G.id AS gym_id, G.name AS gym_name, W.name AS wall_name,
+             B.difficulty AS grade, B.color AS color, U.name AS routesetter
+             FROM users U, gyms G LEFT JOIN walls W ON G.id = W.gym_id
+             LEFT JOIN boulders B ON B.wall_id = W.id
+             WHERE (:gym_id IS NULL OR  G.id =:gym_id)
+             AND (:grade IS NULL OR B.difficulty =:grade)
+             AND B.routesetter_id = U.id
+             ORDER BY gym_name, wall_name, grade, routesetter""" 
+    result = db.session.execute(sql, {"gym_id":gym_id, "grade":grade})
+    boulders = result.fetchall()
+    return boulders
