@@ -1,0 +1,28 @@
+{% if boulders | length == 0 %}
+<p>Ei hakutuloksia</p>
+{% else %}
+<p>Hakutulokset:</p>
+<br>
+<table>
+ <tr>
+  <th>Sali</th>
+  <th>Seinä</th>
+  <th>Vaikeus</th>
+  <th>Tekijä</th>
+  <th>Väri</th>
+ </tr>
+{% for boulder in boulders %}
+ <tr>
+  <td>{{ boulder.gym_name }}</td>
+  <td>{{ boulder.wall_name }}</td>
+  <td>{{ grades[boulder.grade] }}</td>
+  <td>{{ boulder.routesetter }}</td>
+  <td>{{ colors[boulder.color] }}</td>
+ </tr>
+{% endfor %}
+</table>
+<br>
+{% endif %}
+<a href="/search">Uusi haku</a>
+<br>
+<a href="/">Takaisin</a>

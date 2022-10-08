@@ -1,0 +1,21 @@
+<h3>Etsi reittejä</h3>
+<form action="search" method="POST">
+<label for="gym_id">Valitse kiipeilysali:</label>
+<select id="gym_id" name="gym_id">
+  <option value="--">--</option>
+  {% for gym in gyms %}
+  <option value={{ gym.id }}>{{ gym.name }}</option>
+  {% endfor %}
+</select>
+<p>
+<label for="grade">Valitse vaikeus:</label>
+<select id="grade" name="grade">
+  <option value="--">--</option>
+  {% for grade in grades %}
+  <option value={{ grade }}>{{ grades[grade] }}</option>
+  {% endfor %}
+</select>
+<p>
+<input type="submit" value="Etsi">
+</form>
+<a href="/">Takaisin</a>
