@@ -10,6 +10,7 @@
   <th>Vaikeus</th>
   <th>Tekijä</th>
   <th>Väri</th>
+  <th>Tiedot</th>
  </tr>
 {% for boulder in boulders %}
  <tr>
@@ -18,6 +19,7 @@
   <td>{{ grades[boulder.grade] }}</td>
   <td>{{ boulder.routesetter }}</td>
   <td>{{ colors[boulder.color] }}</td>
+  <td><a href="/boulders/{{ boulder.boulder_id }}">Tiedot</a></td>
  </tr>
 {% endfor %}
 </table>
