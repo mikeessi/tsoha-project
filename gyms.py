@@ -34,7 +34,7 @@ def get_gym_info(gym_id):
     gym_info = data[0]
     walls = []
     for row in data:
-        if row[5] == None:
+        if row[5] is None:
             break
         walls.append((row[5],row[6],row[7]))
     return gym_info, walls
@@ -86,15 +86,43 @@ def check_gym_id(gym_id):
         return True
     return False
 
-def get_boulders(gym_id, grade):
+def get_boulders(gym_id, grade, wall_id, boulder_id):
     sql = """SELECT G.id AS gym_id, G.name AS gym_name, W.name AS wall_name,
-             B.difficulty AS grade, B.color AS color, U.name AS routesetter
+             B.id as boulder_id, B.difficulty AS grade, B.color AS color, U.name AS routesetter
              FROM users U, gyms G LEFT JOIN walls W ON G.id = W.gym_id
              LEFT JOIN boulders B ON B.wall_id = W.id
              WHERE (:gym_id IS NULL OR  G.id =:gym_id)
              AND (:grade IS NULL OR B.difficulty =:grade)
+             AND (:wall_id IS NULL OR W.id =:wall_id)
+             AND (:boulder_id IS NULL OR B.id =:boulder_id)
              AND B.routesetter_id = U.id
              ORDER BY gym_name, wall_name, grade, routesetter""" 
-    result = db.session.execute(sql, {"gym_id":gym_id, "grade":grade})
+    result = db.session.execute(sql, {"gym_id":gym_id, "grade":grade, "wall_id":wall_id, "boulder_id":boulder_id})
     boulders = result.fetchall()
     return boulders
+
+def get_boulder_stats(boulder_id):
+    sql = """SELECT COUNT(T.user_id) AS tops FROM topped_boulders T
+             WHERE T.boulder_id =:boulder_id"""
+    result = db.session.execute(sql, {"boulder_id":boulder_id})
+    return result.fetchone()
+
+def get_user_status(boulder_id, user_id):
+    sql = """SELECT T.id FROM users U, topped_boulders T
+             WHERE U.id =:user_id
+             AND T.boulder_id =:boulder_id
+             AND U.id = T.user_id"""
+    result = db.session.execute(sql, {"boulder_id":boulder_id, "user_id":user_id}).fetchone()
+    if result:
+        return True
+    return False
+
+def mark_as_topped(boulder_id, user_id):
+    try:
+        sql = """INSERT INTO topped_boulders (user_id, boulder_id)
+                 VALUES (:user_id, :boulder_id)"""
+        db.session.execute(sql, {"user_id":user_id, "boulder_id":boulder_id})
+        db.session.commit()
+        return True
+    except:
+        return False

@@ -2,7 +2,7 @@
 <form action="search" method="POST">
 <label for="gym_id">Valitse kiipeilysali:</label>
 <select id="gym_id" name="gym_id">
-  <option value="--">--</option>
+  <option value="--">Kaikki</option>
   {% for gym in gyms %}
   <option value={{ gym.id }}>{{ gym.name }}</option>
   {% endfor %}
@@ -10,7 +10,7 @@
 <p>
 <label for="grade">Valitse vaikeus:</label>
 <select id="grade" name="grade">
-  <option value="--">--</option>
+  <option value="--">Kaikki</option>
   {% for grade in grades %}
   <option value={{ grade }}>{{ grades[grade] }}</option>
   {% endfor %}

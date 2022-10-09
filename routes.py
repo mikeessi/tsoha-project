@@ -152,5 +152,24 @@ def search():
             grade = None
         else:
             grade = request.form["grade"]
-        boulders = gyms.get_boulders(gym_id, grade)
+        boulders = gyms.get_boulders(gym_id, grade, None, None)
     return render_template("result.html", boulders=boulders, grades=GRADES, colors=COLORS)
+
+@app.route("/boulders/<int:boulder_id>", methods=["GET", "POST"])
+def boulder_info(boulder_id):
+    users.check_user_access(1)
+    boulder_info = gyms.get_boulders(None, None, None, boulder_id)[0]
+    if not boulder_info:
+       return abort(404)
+    if request.method == "GET":
+        boulder_stats = gyms.get_boulder_stats(boulder_id)
+        user_status = gyms.get_user_status(boulder_id, users.get_user_id())
+        return render_template("boulder_info.html", info=boulder_info,
+                               stats=boulder_stats, status=user_status,
+                               colors=COLORS, grades=GRADES)
+    if request.method == "POST":
+        users.check_csrf_token(request.form["csrf_token"])
+        user_id = users.get_user_id()
+        if gyms.mark_as_topped(boulder_id, user_id):
+            return redirect(f"/boulders/{boulder_id}")
+        return render_template("error.html", page=boulder_info, messages=["Toiminto epäonnistui"])
