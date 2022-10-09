@@ -16,7 +16,11 @@ Tällä hetkellä toteutetut ominaisuudet:
 
 * Kirjautuminen, uloskirjautuminen sekä uuden tunnuksen luominen.
 * Reitintekijät voivat luoda uusia saleja.
-* Reitintekijät voivat lisätä omille saleilleen seiniä. (HUOM! Ominaisuus vie seinät tietokantaan, mutta ne eivät toistaiseksi näy missään käyttäjille.)
+* Reitintekijät voivat lisätä omille saleilleen seiniä.
+* Reitintekijät voivat lisätä reittejä saleille.
+* Kaikki käyttäjät voivat selata reittejä ja nähdä niiden tiedot reitin sivuilta.
+* Kaikki käyttäjät voivat merkitä reitin kiivetyksi tai projektiksi.
+* Käyttäjät näkevät profiilisivullaan listan kiivetyistä reiteistä, sekä projekteistaan.
 * Kaikki käyttäjät voivat selata saleja ja nähdä niiden tiedot salien sivuilla.
 
 Voit testata sovellusta [Herokussa](https://tsoha-kiipeilysovellus.herokuapp.com/).
