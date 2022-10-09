@@ -1,0 +1,25 @@
+{% if boulders | length == 0 %}
+<p>Salille ei ole vielä lisätty reittejä.</p>
+{% else  %}
+<h3>Salin {{ boulders[0].gym_name }} reitit</h3>
+<table>
+ <tr>
+  <th>Seinä</th>
+  <th>Vaikeus</th>
+  <th>Väri</th>
+  <th>Tekijä</th>
+  <th>Tiedot</th>
+ </tr>
+{% for boulder in boulders %}
+ <tr>
+  <td>{{ boulder.wall_name }}</td>
+  <td>{{ grades[boulder.grade] }}</td>
+  <td>{{ colors[boulder.color] }}</td>
+  <td>{{ boulder.routesetter }}</td>
+  <td><a href="/boulders/{{ boulder.boulder_id }}">Tiedot</a></th>
+ </tr>
+{% endfor %}
+</table>
+{% endif %}
+<br>
+<a href="/gyms/{{ gym_id }}">Takaisin</a>
