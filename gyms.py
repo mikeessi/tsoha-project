@@ -178,3 +178,10 @@ def get_projects(user_id):
              WHERE Y.id =:user_id AND B.routesetter_id = U.id"""
     result = db.session.execute(sql, {"user_id":user_id})
     return result.fetchall()
+
+def check_boulder_id(boulder_id):
+    sql = """SELECT id FROM boulders WHERE id =:boulder_id"""
+    result = db.session.execute(sql, {"boulder_id":boulder_id})
+    if result.fetchone():
+        return True
+    return False

@@ -157,10 +157,12 @@ def search():
 
 @app.route("/boulders/<int:boulder_id>", methods=["GET", "POST"])
 def boulder_info(boulder_id):
+    if not gyms.check_boulder_id(boulder_id):
+        abort(404)
     users.check_user_access(1)
     boulder_info = gyms.get_boulders(None, None, None, boulder_id)[0]
     if not boulder_info:
-       return abort(404)
+        abort(404)
     if request.method == "GET":
         boulder_stats = gyms.get_boulder_stats(boulder_id)
         user_status = gyms.get_user_status(boulder_id, users.get_user_id())
@@ -176,6 +178,8 @@ def boulder_info(boulder_id):
 
 @app.route("/gyms/<int:gym_id>/boulders", methods=["GET"])
 def gym_boulders(gym_id):
+    if not gyms.check_gym_id(gym_id):
+        abort(404)
     users.check_user_access(1)
     boulder_info = gyms.get_boulders(gym_id, None, None, None)
     return render_template("gym_boulders.html", boulders=boulder_info,
@@ -183,6 +187,8 @@ def gym_boulders(gym_id):
 
 @app.route("/boulders/<int:boulder_id>/set_project", methods=["POST"])
 def set_project(boulder_id):
+    if not gyms.check_boulder_id(boulder_id):
+        abort(404)
     users.check_user_access(1)
     users.check_csrf_token(request.form["csrf_token"])
     user_id = users.get_user_id()
