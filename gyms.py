@@ -108,17 +108,35 @@ def get_boulder_stats(boulder_id):
     return result.fetchone()
 
 def get_user_status(boulder_id, user_id):
-    sql = """SELECT T.id FROM users U, topped_boulders T
-             WHERE U.id =:user_id
-             AND T.boulder_id =:boulder_id
-             AND U.id = T.user_id"""
-    result = db.session.execute(sql, {"boulder_id":boulder_id, "user_id":user_id}).fetchone()
+    status = {"topped":False, "project":False}
+    params = {"boulder_id":boulder_id, "user_id":user_id}
+    sql_top = """SELECT T.id FROM users U, topped_boulders T
+                 WHERE U.id =:user_id
+                 AND T.boulder_id =:boulder_id
+                 AND U.id = T.user_id"""
+    result = db.session.execute(sql_top, params).fetchone()
     if result:
-        return True
-    return False
+        status["topped"] = True
+
+    sql_project = """SELECT P.id FROM users U, projects P
+                     WHERE U.id =:user_id
+                     AND P.boulder_id =:boulder_id
+                     AND U.id = P.user_id"""
+    result = db.session.execute(sql_project, params).fetchone()
+    if result:
+        status["project"] = True
+
+    return status
+
+def delete_project(boulder_id, user_id):
+    sql = """DELETE FROM projects
+             WHERE user_id =:user_id AND boulder_id =:boulder_id"""
+    db.session.execute(sql, {"user_id":user_id, "boulder_id":boulder_id})
+    db.session.commit()
 
 def mark_as_topped(boulder_id, user_id):
     try:
+        delete_project(boulder_id, user_id)
         sql = """INSERT INTO topped_boulders (user_id, boulder_id)
                  VALUES (:user_id, :boulder_id)"""
         db.session.execute(sql, {"user_id":user_id, "boulder_id":boulder_id})
@@ -126,3 +144,14 @@ def mark_as_topped(boulder_id, user_id):
         return True
     except:
         return False
+
+def mark_as_project(boulder_id, user_id):
+    try:
+        sql = """INSERT INTO projects (user_id, boulder_id)
+                 VALUES (:user_id, :boulder_id)"""
+        db.session.execute(sql, {"user_id":user_id, "boulder_id":boulder_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+

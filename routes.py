@@ -173,3 +173,19 @@ def boulder_info(boulder_id):
         if gyms.mark_as_topped(boulder_id, user_id):
             return redirect(f"/boulders/{boulder_id}")
         return render_template("error.html", page=boulder_info, messages=["Toiminto epäonnistui"])
+
+@app.route("/gyms/<int:gym_id>/boulders", methods=["GET"])
+def gym_boulders(gym_id):
+    users.check_user_access(1)
+    boulder_info = gyms.get_boulders(gym_id, None, None, None)
+    return render_template("gym_boulders.html", boulders=boulder_info,
+                           colors=COLORS, grades=GRADES, gym_id=gym_id)
+
+@app.route("/boulders/<int:boulder_id>/set_project", methods=["POST"])
+def set_project(boulder_id):
+    users.check_user_access(1)
+    users.check_csrf_token(request.form["csrf_token"])
+    user_id = users.get_user_id()
+    if gyms.mark_as_project(boulder_id, user_id):
+        return redirect(f"/boulders/{boulder_id}")
+    return render_template("error.html", page=boulder_info, messages=["Toiminto epäonnistui"])

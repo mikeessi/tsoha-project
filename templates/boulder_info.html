@@ -18,15 +18,28 @@ Reitti on kiivetty 1 kerran.
 Reitti on kiivetty {{ stats.tops }} kertaa.
 {% endif %}
 <br>
-{% if status %}
+<br>
+{% if status.topped %}
 Olet kiivennyt tämän reitin. Hienoa!
-{% else %}
+<br>
+{% elif status.project %}
 Et ole vielä kiivennyt reittiä.
 <br>
+Reitti on lisätty projekteihisi.
+{% else %}
+<form action="/boulders/{{ info.boulder_id }}/set_project" method="POST">
+ <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+ <input type="submit" value="Merkitse projektiksi">
+</form>
+<br>
+{% endif %}
+{% if not status.topped %}
 <form action="/boulders/{{ info.boulder_id }}" method="POST">
  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
  <input type="submit" value="Merkitse kiivetyksi">
 </form> 
 {% endif %}
 <br>
-<a href="/search">Takaisin hakuun</a>
+<a href="/gyms/{{ info.gym_id }}/boulders">Muut salin reitit</a>
+<br>
+<a href="/search">Reittihakuun</a>
