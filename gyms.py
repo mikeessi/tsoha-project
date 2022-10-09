@@ -162,7 +162,8 @@ def get_topped_boulders(user_id):
              FROM users U, gyms G JOIN walls W ON G.id = W.gym_id
              JOIN boulders B ON W.id = B.wall_id
              JOIN topped_boulders T ON T.boulder_id = B.id
-             WHERE T.user_id = U.id AND U.id =:user_id"""
+             JOIN users Y on Y.id = T.user_id
+             WHERE Y.id =:user_id AND B.routesetter_id = U.id"""
     result = db.session.execute(sql, {"user_id":user_id})
     return result.fetchall()
 
@@ -173,6 +174,7 @@ def get_projects(user_id):
              FROM users U, gyms G JOIN walls W ON G.id = W.gym_id
              JOIN boulders B ON w.id = B.wall_id
              JOIN projects P ON P.boulder_id = B.id
-             WHERE P.user_id = U.id AND U.id =:user_id"""
+             JOIN users Y ON Y.id = P.user_id
+             WHERE Y.id =:user_id AND B.routesetter_id = U.id"""
     result = db.session.execute(sql, {"user_id":user_id})
     return result.fetchall()
