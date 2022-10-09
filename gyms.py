@@ -155,3 +155,24 @@ def mark_as_project(boulder_id, user_id):
     except:
         return False
 
+def get_topped_boulders(user_id):
+    sql = """SELECT G.name AS gym_name, W.name AS wall_name,
+             B.id AS boulder_id, B.difficulty AS grade, B.color AS color,
+             U.name AS routesetter
+             FROM users U, gyms G JOIN walls W ON G.id = W.gym_id
+             JOIN boulders B ON W.id = B.wall_id
+             JOIN topped_boulders T ON T.boulder_id = B.id
+             WHERE T.user_id = U.id AND U.id =:user_id"""
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchall()
+
+def get_projects(user_id):
+    sql = """SELECT G.name AS gym_name, W.name AS wall_name,
+             B.id AS boulder_id, B.difficulty AS grade, B.color AS color,
+             U.name AS routesetter
+             FROM users U, gyms G JOIN walls W ON G.id = W.gym_id
+             JOIN boulders B ON w.id = B.wall_id
+             JOIN projects P ON P.boulder_id = B.id
+             WHERE P.user_id = U.id AND U.id =:user_id"""
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchall()

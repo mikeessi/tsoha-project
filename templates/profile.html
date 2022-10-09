@@ -1,0 +1,16 @@
+{% from "build_table.html" import build_table %}
+<h3>{{ session.username }}</h3>
+{% if tops | length == 0 %}
+Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
+{% else %}
+<br>
+{{ build_table(tops, grades, colors) }}
+<br>
+{% endif %}
+{% if projects | length == 0 %}
+Sinulla ei tällä hetkellä ole projekteja.
+{% else %}
+{{ build_table(projects, grades, colors) }}
+{% endif %}
+<br> 
+<a href="/">Takaisin</a>

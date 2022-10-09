@@ -189,3 +189,11 @@ def set_project(boulder_id):
     if gyms.mark_as_project(boulder_id, user_id):
         return redirect(f"/boulders/{boulder_id}")
     return render_template("error.html", page=boulder_info, messages=["Toiminto epäonnistui"])
+
+@app.route("/profile", methods=["GET"])
+def profile():
+    users.check_user_access(1)
+    user_id = users.get_user_id()
+    tops = gyms.get_topped_boulders(user_id)
+    projects = gyms.get_projects(user_id)
+    return render_template("profile.html", tops=tops, projects=projects, colors=COLORS, grades=GRADES)
