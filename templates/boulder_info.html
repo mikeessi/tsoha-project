@@ -1,0 +1,32 @@
+<h3>Reitin tiedot</h3>
+<br>
+Sijainti: {{ info.gym_name }}
+<br>
+Seinä: {{ info.wall_name }}
+<br>
+Vaikeus: {{ grades[info.grade] }}
+<br>
+Väri: {{ colors[info.color] }}
+<br>
+Tekijä: {{ info.routesetter }}
+<br>
+{% if stats.tops == 0 %}
+Reittiä ei ole vielä kiivetty.
+{% elif stats.tops == 1 %}
+Reitti on kiivetty 1 kerran.
+{% else %}
+Reitti on kiivetty {{ stats.tops }} kertaa.
+{% endif %}
+<br>
+{% if status %}
+Olet kiivennyt tämän reitin. Hienoa!
+{% else %}
+Et ole vielä kiivennyt reittiä.
+<br>
+<form action="/boulders/{{ info.boulder_id }}" method="POST">
+ <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+ <input type="submit" value="Merkitse kiivetyksi">
+</form> 
+{% endif %}
+<br>
+<a href="/search">Takaisin hakuun</a>
