@@ -3,6 +3,7 @@
 {% if tops | length == 0 %}
 Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 {% else %}
+<h3>Kiivetyt reitit:</h3>
 <br>
 {{ build_table(tops, grades, colors) }}
 <br>
@@ -10,6 +11,7 @@ Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 {% if projects | length == 0 %}
 Sinulla ei tällä hetkellä ole projekteja.
 {% else %}
+<h3>Projektit:</h3>
 {{ build_table(projects, grades, colors) }}
 {% endif %}
 <br> 
