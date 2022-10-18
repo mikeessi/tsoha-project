@@ -1,22 +1,26 @@
 {% macro build_table(boulders, grades, colors) %}
-<table>
- <tr>
-  <th>Sijainti</th>
-  <th>Seinä</th>
-  <th>Vaikeus</th>
-  <th>Väri</th>
-  <th>Tekijä</th>
-  <th>Tiedot</th>
- </tr>
+<table class="table">
+ <thead>
+  <tr>
+   <th>Sijainti</th>
+   <th>Seinä</th>
+   <th>Vaikeus</th>
+   <th>Väri</th>
+   <th>Tekijä</th>
+   <th>Tiedot</th>
+  </tr>
+ </thead>
+ <tbody>
 {% for boulder in boulders %}
- <tr>
-  <td>{{ boulder.gym_name }}</td>
-  <td>{{ boulder.wall_name }}</td>
-  <td>{{ grades[boulder.grade] }}</td>
-  <td>{{ colors[boulder.color] }}</td>
-  <td>{{ boulder.routesetter }}</td>
-  <td><a href="/boulders/{{ boulder.boulder_id }}">Tiedot</a></td>
- </tr>
+  <tr>
+   <td>{{ boulder.gym_name }}</td>
+   <td>{{ boulder.wall_name }}</td>
+   <td>{{ grades[boulder.grade] }}</td>
+   <td>{{ colors[boulder.color] }}</td>
+   <td>{{ boulder.routesetter }}</td>
+   <td><a href="/boulders/{{ boulder.boulder_id }}">Tiedot</a></td>
+  </tr>
 {% endfor %}
+ </tbody>
 </table>
 {% endmacro %}

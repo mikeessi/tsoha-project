@@ -4,7 +4,7 @@
 {% if boulders | length == 0 %}
 <p>Ei hakutuloksia</p>
 {% else %}
-<p>Hakutulokset:</p>
+<h3>Hakutulokset:</h3>
 {{ build_table(boulders, grades, colors) }}
 <br>
 {% endif %}
