@@ -1,8 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
 <h3>Lisää sali</h3>
 
 <form action="add_gym" method="POST">
-Salin nimi: <br><input type="text" name="gym_name" maxlength="30">
-<p>Salin osoite: <br><input type="text" name="address" maxlength="30">
+Salin nimi: <br><input type="text" name="gym_name" maxlength="30" value="{{ request.form["gym_name"] }}">
+<p>Salin osoite: <br><input type="text" name="address" maxlength="30" value="{{ request.form["address"] }}">
 
 <input type="submit" value="Luo sali">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
@@ -10,4 +12,7 @@ Salin nimi: <br><input type="text" name="gym_name" maxlength="30">
 </form>
 
 <p>
+{% block error %}
+{% endblock error %}
 <a href="/gyms">Takaisin</a>
+{% endblock content %}

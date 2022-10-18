@@ -1,4 +1,20 @@
-{% block content %}
-{% endblock content %}
-{% block error %}
-{% endblock error %}
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<title>Kiipeilysovellus</title>
+<div class="container-fluid">
+ <div class="row">
+  <div class="col-3 px-1 position-fixed" id="sticky-sidebar">
+   <div class="nav flex-column flex-nowrap vh-100 overflow-auto p-2">
+    <li><a href="/gyms" class="nav-link">Salit</a></li>
+    <li><a href="/profile" class="nav-link">Oma profiili</a></li>
+    <li><a href="/search" class="nav-link">Etsi reittejä</a></li>
+    <li><a href="/logout" class="nav-link">Kirjaudu ulos</a></li>
+   </div>
+  </div>
+  <div class="col-9 offset-3" id="main">
+  {% block content %}
+  {% endblock content %}
+  </div>
+ </div>
+</div>

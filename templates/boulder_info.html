@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 <h3>Reitin tiedot</h3>
 <br>
 Sijainti: {{ info.gym_name }}
@@ -43,3 +45,4 @@ Reitti on lisätty projekteihisi.
 <a href="/gyms/{{ info.gym_id }}/boulders">Muut salin reitit</a>
 <br>
 <a href="/search">Reittihakuun</a>
+{% endblock %}

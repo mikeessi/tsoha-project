@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 <h3>Lisää reitti salille {{ gym_info[1] }}</h3>
 <form action="add_boulder" method="POST">
 <label for="wall_id">Valitse seinä:</label>
@@ -26,4 +28,4 @@
 <input type="hidden" name="used_id" value="{{ session.user_id }}">
 </form>
 <a href="/gyms/{{gym_info[0]}}">Takaisin</a>
-
+{% endblock %}

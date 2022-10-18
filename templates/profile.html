@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 {% from "build_table.html" import build_table %}
 <h3>{{ session.username }}</h3>
 {% if tops | length == 0 %}
@@ -6,6 +8,8 @@ Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 <h3>Kiivetyt reitit:</h3>
 <br>
 {{ build_table(tops, grades, colors) }}
+<br>
+<strong>Korkein kiivetty vaikeus:</strong> {{ grades[max_grade] }}
 <br>
 {% endif %}
 {% if projects | length == 0 %}
@@ -16,3 +20,4 @@ Sinulla ei tällä hetkellä ole projekteja.
 {% endif %}
 <br> 
 <a href="/">Takaisin</a>
+{% endblock %}

@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 {% from "build_table.html" import build_table %}
 {% if boulders | length == 0 %}
 <p>Ei hakutuloksia</p>
@@ -9,3 +11,4 @@
 <a href="/search">Uusi haku</a>
 <br>
 <a href="/">Takaisin</a>
+{% endblock content %}

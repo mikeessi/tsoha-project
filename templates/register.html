@@ -1,7 +1,7 @@
 <h2>Luo uusi tunnus</h2>
 
 <form action="/register" method="POST">
-Käyttäjänimi: <br><input type="text" name="username" maxlength="12">
+Käyttäjänimi: <br><input type="text" name="username" maxlength="12" value="{{ request.form["username"] }}">
 <p>Salasana: <br><input type="password" name="password1">
 <p>Salasana uudestaan: <br><input type="password" name="password2">
 <p>Käyttäjärooli:
@@ -11,8 +11,6 @@ Käyttäjänimi: <br><input type="text" name="username" maxlength="12">
 </select>
 <p><input type="submit" value="Luo uusi tunnus">
 </form>
-{% block error %}
-{% endblock error %}
 
 <p><a href="/">Takaisin</a>
 

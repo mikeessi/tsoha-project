@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 {% from "build_table.html" import build_table %}
 {% if boulders | length == 0 %}
 <p>Salille ei ole vielä lisätty reittejä.</p>
@@ -7,3 +9,4 @@
 {% endif %}
 <br>
 <a href="/gyms/{{ gym_id }}">Takaisin</a>
+{% endblock %}

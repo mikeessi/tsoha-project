@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block content %}
 <h2>{{ gym_info[1] }}</h2>
 <p>Salin osoite: {{ gym_info[2] }}<br>
 Salin omistaja: {{ gym_info[3] }}<br>
@@ -30,3 +32,4 @@ Salin omistaja: {{ gym_info[3] }}<br>
 <a href="/gyms/{{ gym_info[0] }}/boulders">Näytä salin reitit</a>
 <br>
 <a href="/gyms">Takaisin</a>
+{% endblock content %}
