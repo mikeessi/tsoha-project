@@ -4,16 +4,23 @@
 <title>Kiipeilysovellus</title>
 <div class="container-fluid">
  <div class="row">
-  <div class="col-3 px-1 position-fixed" id="sticky-sidebar">
+  <div class="col-3 px-1 bg-primary text-white position-fixed" id="sticky-sidebar">
    <div class="nav flex-column flex-nowrap vh-100 overflow-auto p-2">
+    {% if session.user_id %}
     <p>Olet kirjautuneena nimellä {{ session.username }}</p>
-    <a href="/gyms" class="nav-link">Salit</a>
-    <a href="/profile" class="nav-link">Oma profiili</a>
-    <a href="/search" class="nav-link">Etsi reittejä</a>
-    <a href="/logout" class="nav-link">Kirjaudu ulos</a>
+    <a href="/" class="nav-link text-white">Etusivu</a>
+    <a href="/gyms" class="nav-link text-white">Salit</a>
+    <a href="/profile" class="nav-link text-white">Oma profiili</a>
+    <a href="/search" class="nav-link text-white">Etsi reittejä</a>
+    <a href="/logout" class="nav-link text-white">Kirjaudu ulos</a>
+    {% else %}
+    <p>Et ole kirjautunut sisälle</p>
+    <a href="/" class="nav-link text-white">Kirjaudu sisään</a>
+    {% endif %}
    </div>
   </div>
   <div class="col-9 offset-3" id="main">
+  <br>
   {% block content %}
   {% endblock content %}
   </div>

@@ -8,12 +8,15 @@ Salin omistaja: {{ gym_info[3] }}<br>
 <br>
 {% endif %}
 {% if walls|length > 0 %}
+<h4>Salin seinät</h4>
 <br>
-<table>
+<table class="table">
+ <thead>
   <tr>
-   <th>Nimi</th>
-   <th>Kuvaus</th>
+   <th scope="col">Nimi</th>
+   <th scope="col">Kuvaus</th>
   </tr>
+ </thead>
 {% for wall in walls %}
   <tr>
    <td>{{ wall[0] }}</td>
@@ -31,5 +34,5 @@ Salin omistaja: {{ gym_info[3] }}<br>
 <br>
 <a href="/gyms/{{ gym_info[0] }}/boulders">Näytä salin reitit</a>
 <br>
-<a href="/gyms">Takaisin</a>
+<a href="/gyms">Kaikki salit</a>
 {% endblock content %}

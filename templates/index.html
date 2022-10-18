@@ -1,15 +1,9 @@
-<title>Kiipeilysovellus</title>
+{% extends "layout.html" %}
+{% block content %}
 {% if session.user_id %}
-<p>Tervetuloa, {{ session.username }}</p>
-<a href="/gyms">Salit</a>
-<br>
-<a href="/profile">Omat tiedot</a>
-<br>
-<a href="/search">Etsi reittejä</a>
-<br>
-<a href="/logout">Kirjaudu ulos</a>
+<h3>Tervetuloa</h3>
 {% else %}
-<h2>Tervetuloa</h2>
+<h2>Sisäänkirjautuminen</h2>
 <form action="/login" method="POST">
 Käyttäjänimi: <br><input type="text" name="username">
 <p>
@@ -18,7 +12,7 @@ Salasana: <br><input type="password" name="password">
 <input type="submit" value="Kirjaudu">
 </form>
 <p>Ei tunnusta? <a href="/register">Luo uusi tunnus tästä</a>
-
 {% endif %}
+{% endblock content %}
 
 

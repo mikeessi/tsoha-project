@@ -1,23 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
 {% from "build_table.html" import build_table %}
-<h3>{{ session.username }}</h3>
+<h3>Profiili</h3>
 {% if tops | length == 0 %}
 Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 {% else %}
-<h3>Kiivetyt reitit:</h3>
+<div class="col-3 offset-8 border text-center">
+ <h4>Korkein kiivetty vaikeus:</h4>
+ <br>
+ <h4>{{ grades[max_grade] }}</h4>
+</div>
+<h4>Kiivetyt reitit:</h4>
 <br>
 {{ build_table(tops, grades, colors) }}
 <br>
-<strong>Korkein kiivetty vaikeus:</strong> {{ grades[max_grade] }}
 <br>
 {% endif %}
 {% if projects | length == 0 %}
 Sinulla ei tällä hetkellä ole projekteja.
 {% else %}
-<h3>Projektit:</h3>
+<h4>Projektit:</h4>
 {{ build_table(projects, grades, colors) }}
 {% endif %}
 <br> 
-<a href="/">Takaisin</a>
 {% endblock %}
