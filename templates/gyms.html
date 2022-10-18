@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 <h3>Salit</h3>
-{% for gym in gyms %}
-<li><a href="/gyms/{{ gym.id }}">{{ gym.name }}</a>
-{% endfor %}
+<div class="col-3">
+ <div class="list-group">
+ {% for gym in gyms %}
+ <a href="/gyms/{{ gym.id }}" class="list-group-item list-group-item-action">{{ gym.name }}</a>
+ {% endfor %}
+ </div>
+</div>
 <br>
 {% if session.user_role == 2 %}
 <h4>Reitintekijän toiminnot</h4>
