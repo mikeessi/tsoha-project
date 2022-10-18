@@ -8,10 +8,11 @@ Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 <div class="col-3 offset-8 border text-center">
  <h4>Korkein kiivetty vaikeus:</h4>
  <br>
- <h4>{{ grades[max_grade] }}</h4>
+ <h2>{{ grades[max_grade] }}</h2>
 </div>
+<div class="col-md-4">
 <h4>Kiivetyt reitit:</h4>
-<br>
+</div>
 {{ build_table(tops, grades, colors) }}
 <br>
 <br>
@@ -19,7 +20,10 @@ Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 {% if projects | length == 0 %}
 Sinulla ei tällä hetkellä ole projekteja.
 {% else %}
+<br>
+<div class="col-md-4">
 <h4>Projektit:</h4>
+</div>
 {{ build_table(projects, grades, colors) }}
 {% endif %}
 <br> 
