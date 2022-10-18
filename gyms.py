@@ -187,7 +187,7 @@ def check_boulder_id(boulder_id):
     return False
 
 def get_max_grade(user_id):
-    sql = """SELECT U.name, MAX(B.difficulty)
+    sql = """SELECT U.name, MAX(B.difficulty) AS max_grade
              FROM boulders B, topped_boulders T, users U
              WHERE B.id = T.boulder_id AND U.id = T.user_id
              AND U.id =:user_id

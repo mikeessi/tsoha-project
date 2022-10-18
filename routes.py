@@ -200,6 +200,7 @@ def set_project(boulder_id):
 def profile():
     users.check_user_access(1)
     user_id = users.get_user_id()
+    max_grade = gyms.get_max_grade(user_id)["max_grade"]
     tops = gyms.get_topped_boulders(user_id)
     projects = gyms.get_projects(user_id)
-    return render_template("profile.html", tops=tops, projects=projects, colors=COLORS, grades=GRADES)
+    return render_template("profile.html", tops=tops, projects=projects, max_grade=max_grade, colors=COLORS, grades=GRADES)
