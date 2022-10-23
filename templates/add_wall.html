@@ -1,15 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 <h3>Seinän lisäys</h3>
-
-<form action="add_wall" method="POST">
-Seinän nimi: <br><input type="text" name="wall_name" maxlength="20" value="{{ request.form["wall_name"] }}">
-<p>Lyhyt kuvaus seinälle (esim. tyyppi, sijainti)
-<br><input type="text" name="wall_description" maxlength="20" value="{{ request.form["wall_description"] }}">
-<input type="submit" value="Lisää seinä">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
-</form>
-<br>
-<a href="/gyms/{{ gym_id }}">Takaisin</a>
+<div class="col-4">
+ <form action="add_wall" method="POST">
+  <div class="form-group">
+   <label for="inputWallName">Seinän nimi</label>
+   <input type="text" id="inputWallName" class="form-control" name="wall_name" maxlength="20" value="{{ request.form["wall_name"] }}">
+  </div>
+  <div class="form-group">
+   <label for="inputWallDescr">Lyhyt kuvaus seinälle (esim. tyyppi, sijainti)</label>
+   <input type="text" id="inputWallDescr" class="form-control" name="wall_description" maxlength="20" value="{{ request.form["wall_description"] }}">
+  </div>
+  <button type="submit" class="btn btn-primary">Lisää seinä</button> 
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+ </form>
+ <br>
+ <a href="/gyms/{{ gym_id }}">Takaisin</a>
+</div>
 {% endblock %}

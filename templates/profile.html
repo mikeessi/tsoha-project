@@ -3,7 +3,9 @@
 {% from "build_table.html" import build_table %}
 <h3>Profiili</h3>
 {% if tops | length == 0 %}
-Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
+<div class="col-4">
+ Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
+</div>
 {% else %}
 <div class="col-3 offset-8 border text-center">
  <h4>Korkein kiivetty vaikeus:</h4>
@@ -18,7 +20,9 @@ Et ole vielä merkinnyt yhtään reittiä kiivetyksi.
 <br>
 {% endif %}
 {% if projects | length == 0 %}
-Sinulla ei tällä hetkellä ole projekteja.
+<div class="col-4">
+ Sinulla ei tällä hetkellä ole projekteja.
+</div>
 {% else %}
 <br>
 <div class="col-md-4">

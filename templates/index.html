@@ -4,14 +4,21 @@
 <h3>Tervetuloa</h3>
 {% else %}
 <h2>Sisäänkirjautuminen</h2>
-<form action="/login" method="POST">
-Käyttäjänimi: <br><input type="text" name="username">
-<p>
-Salasana: <br><input type="password" name="password">
-<p>
-<input type="submit" value="Kirjaudu">
+<div class="col-4">
+ <form action="/login" method="POST">
+  <div class="form-group">
+   <label for="inputUsername">Käyttäjänimi</label>
+   <input type="text" class="form-control" name="username" id="inputUsername">
+  </div>
+  <div class="form-group">
+   <label for="inputPassword">Salasana</label>
+   <input type="password" class="form-control" name="password" id="inputPassword">
+  </div>
+ <p>
+ <button type="submit" class="btn btn-primary">Kirjaudu</button>
 </form>
 <p>Ei tunnusta? <a href="/register">Luo uusi tunnus tästä</a>
+</div>
 {% endif %}
 {% endblock content %}
 

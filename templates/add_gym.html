@@ -1,18 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 <h3>Lisää sali</h3>
-
-<form action="add_gym" method="POST">
-Salin nimi: <br><input type="text" name="gym_name" maxlength="30" value="{{ request.form["gym_name"] }}">
-<p>Salin osoite: <br><input type="text" name="address" maxlength="30" value="{{ request.form["address"] }}">
-
-<input type="submit" value="Luo sali">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
-</form>
-
-<p>
-{% block error %}
-{% endblock error %}
-<a href="/gyms">Takaisin</a>
+<div class="col-4">
+ <form action="add_gym" method="POST">
+  <div class="form-group">
+   <label for="inputGymName">Salin nimi</label>
+   <input type="text" id="inputGymName" class="form-control" name="gym_name" maxlength="30" value="{{ request.form["gym_name"] }}">
+  </div>
+  <div class="form-group">
+   <label for="inputGymAddress">Salin osoite</label>
+   <input type="text" id="inputGymAddress" class="form-control" name="address" maxlength="30" value="{{ request.form["address"] }}">
+  </div>
+  <button type="submit" class="btn btn-primary">Lisää sali</button>
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+ </form>
+ <br>
+ <a href="/gyms">Takaisin</a>
+ <br>
+</div>
 {% endblock content %}

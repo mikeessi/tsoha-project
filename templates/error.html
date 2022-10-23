@@ -13,8 +13,10 @@
     {% endif %}
 {% block error %}
 <div class="col-9 offset-3" id="main">
-{% for msg in messages %}
-<p style="color:red">{{ msg }}</p>
-{% endfor %}
+ <div class="col-4">
+  {% for msg in messages %}
+  <p style="color:red">{{ msg }}</p>
+  {% endfor %}
+ </div>
 </div>
 {% endblock error %}

@@ -1,18 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2>Luo uusi tunnus</h2>
-
-<form action="/register" method="POST">
-Käyttäjänimi: <br><input type="text" name="username" maxlength="12" value="{{ request.form["username"] }}">
-<p>Salasana: <br><input type="password" name="password1">
-<p>Salasana uudestaan: <br><input type="password" name="password2">
-<p>Käyttäjärooli:
-<select name="user_role">
-<option value=1> Kiipeilijä
-<option value=2> Reitintekijä
-</select>
-<p><input type="submit" value="Luo uusi tunnus">
-</form>
-
-<p><a href="/">Takaisin</a>
+<div class="col-4">
+ <form action="/register" method="POST">
+  <div class="form-group">
+   <label for="inputUsername">Käyttäjänimi</label>
+   <input type="text" class="form-control" id="inputUsername" name="username" maxlength="12" value="{{ request.form["username"] }}">
+  </div>
+  <div class="form-group">
+   <label for="inputPassword1">Salasana</label>
+   <input type="password" class="form-control" id="inputPassword1" name="password1">
+  </div>
+  <div class="form-group">
+   <label for="inputPassword2">Salasana uudestaan</label>
+   <input type="password" class="form-control" id="inputPassword2" name="password2">
+  </div>
+  <div class="form-group">
+   <label for="selectUserRole">Käyttäjärooli</label>
+   <select class="form-control" id="selectUserRole" name="user_role">
+    <option value=1>Kiipeilijä</option>
+    <option value=2>Reitintekijä</option>
+   </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+<br>
+<a href="/">Takaisin</a>
+</div>
 {% endblock content %}

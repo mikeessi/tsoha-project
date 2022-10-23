@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 <h3>Salit</h3>
-<div class="col-3">
+<br>
+<div class="col-4">
  <div class="list-group">
  {% for gym in gyms %}
  <a href="/gyms/{{ gym.id }}" class="list-group-item list-group-item-action">{{ gym.name }}</a>
@@ -11,9 +12,11 @@
 <br>
 {% if session.user_role == 2 %}
 <h4>Reitintekijän toiminnot</h4>
-<ul>
-<li><a href="/add_gym">Lisää uusi sali</a>
-</ul>
+<div class="col-4">
+ <div class="list-group">
+ <a href="/add_gym" class="list-group-item list-group-item-action">Lisää uusi sali</a>
+ </div>
+</div>
 {% endif %}
 <br>
 {% endblock %}

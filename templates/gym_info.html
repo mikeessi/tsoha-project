@@ -1,12 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 <h3>{{ gym_info[1] }}</h3>
-<div class="col-3">Salin osoite: {{ gym_info[2] }}<br>
-Salin omistaja: {{ gym_info[3] }}
+<div class="col-4">
+ Salin osoite: {{ gym_info[2] }}
+ <br>
+ Salin omistaja: {{ gym_info[3] }}
 </div>
 {% if gym_info[4] == session.user_id %}
-<div class="col-3">
-<a href="/gyms/{{ gym_info[0] }}/add_wall">Lisää seinä</a>
+<div class="col-4">
+ <a href="/gyms/{{ gym_info[0] }}/add_wall">Lisää seinä</a>
 </div>
 <br>
 {% endif %}
@@ -30,12 +32,15 @@ Salin omistaja: {{ gym_info[3] }}
  </table>
 </div>
 <br>
-<div class="col-6">
+<div class="col-4">
 {% if session.user_role == 2 %}
 <a href="/gyms/{{ gym_info[0] }}/add_boulder">Lisää reitti</a>
 {% endif %}
 {% else %}
-Salille ei ole vielä lisätty seiniä.
+<div class="col-4">
+ <br>
+ Salille ei ole vielä lisätty seiniä.
+</div>
 {% endif %}
 <br>
 {% if walls | length > 0 %}
